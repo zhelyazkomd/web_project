@@ -14,10 +14,10 @@ class SignUpView(views.CreateView):
 
     success_url = reverse_lazy('index')
 
-    # def post(self, request, *args, **kwargs):
-    #     response = super().post(request, *args, **kwargs)
-    #     login(request, self.object)
-    #     return response
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        login(request, self.object)
+        return response
 
 
 class SignInView(auth_views.LoginView):
@@ -28,19 +28,15 @@ class SignOutView(auth_views.LogoutView):
     next_page = reverse_lazy('index')
 
 
-# class UserEditView(views.UpdateView):
-#     first_name = Profile.first_name
-#     last_name = Profile.last_name
-#     gender = Profile.gender
-#     age = Profile.age
-#
-#     template_name = 'auth/user-profile-edit-page.html'
-#     model = Profile
-#     fields = ('email', 'password',)
-#     # fields = ('email',)
-#
-#     def get_success_url(self):
-#         # return reverse_lazy('details user', kwargs={
-#         #     'pk': self.request.user.pk,
-#         # })
-#         return reverse_lazy('index')
+class UserEditView(views.UpdateView):
+    template_name = 'accounts/profile-edit-page.html'
+    model = Profile
+    # form_class = UserEditView
+    fields = ('first_name', 'last_name', 'gender', 'photo', 'short_introduction',)
+
+    def get_success_url(self):
+        # return reverse_lazy('index', kwargs={
+        #     'pk': self.request.user.pk,
+        # })
+
+        return reverse_lazy('index')
