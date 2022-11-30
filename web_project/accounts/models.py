@@ -47,17 +47,23 @@ class Profile(models.Model):
 
     first_name = models.CharField(
         max_length=MAX_FIRST_NAME_LENGTH,
+        blank=True,
+        null=True,
     )
 
     last_name = models.CharField(
         max_length=MAX_LAST_NAME_LENGTH,
+        blank=True,
+        null=True,
     )
 
     age = models.PositiveIntegerField()
 
     gender = models.CharField(
         choices=Gender.choices(),
-        max_length=Gender.max_len()
+        max_length=Gender.max_len(),
+        blank=True,
+        null=True,
     )
 
     short_introduction = models.TextField(
