@@ -1,3 +1,4 @@
+from cloudinary.forms import CloudinaryFileField
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django import forms
 
@@ -35,5 +36,8 @@ class UserEditForm(auth_forms.UserChangeForm):
     class Meta:
         model = Profile
         fields = "__all__"
+        image = CloudinaryFileField(
+            options={
+                'tags': "directly_uploaded", })
         # fields = "__all__"
         # field_classes = {"username": auth_forms.UsernameField}

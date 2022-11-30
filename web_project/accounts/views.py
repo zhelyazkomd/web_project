@@ -40,3 +40,9 @@ class UserEditView(views.UpdateView):
         # })
 
         return reverse_lazy('index')
+
+
+class UserDeleteView(views.DeleteView):
+    template_name = 'accounts/profile-delete-page.html'
+    model = UserModel
+    success_url = reverse_lazy('index')
