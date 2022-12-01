@@ -25,11 +25,11 @@ class BaseEventForm(forms.ModelForm):
         }
 
 
-
-
-
-
 class CreateEventForm(BaseEventForm):
     image = CloudinaryFileField(
         options={
             'tags': "directly_uploaded", })
+
+
+class EditEventForm(BaseEventForm):
+    pass
