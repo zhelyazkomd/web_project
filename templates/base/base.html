@@ -15,7 +15,11 @@
         <li><a href="{% url 'sign up' %}">Sign up</a></li>
         <li><a href="{% url 'sign in' %}">Sign in</a></li>
     {% else %}
-{#        <li><a href="{% url 'edit profile' pk=request.user.pk%}">Edit Profile</a></li>#}
+        <li><a href="{% url 'edit profile' pk=request.user.pk%}">Edit Profile</a></li>
+        <li><a href="{% url 'create event' %}">Create Event</a></li>
+        <li><a href="{% url 'show all events' %}">Events</a></li>
+
+{#        <li><a href="{% url 'edit event' pk=request.user.pk %}">Edit Event</a></li>#}
         <li><a href="{% url 'sign out' %}">Sign out</a></li>
     {% endif %}
     {#  <li><a href="contact.asp">Contact</a></li>#}

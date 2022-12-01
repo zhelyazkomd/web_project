@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+{% load cloudinary %}
+{% block content %}
+<h1>Edit Event</h1>
+<form method="post" action="{% url 'edit event' pk=request.event.pk%}" enctype="multipart/form-data">
+    {{ form.as_p }}
+    <button>Edit</button>
+    {% csrf_token %}
+</form>
+{% endblock %}
