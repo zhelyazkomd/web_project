@@ -8,7 +8,10 @@ from web_project.events.models import Event
 class BaseEventForm(forms.ModelForm):
     class Meta:
         model = Event
-        exclude = ('user',)
+        exclude = ('user', 'slug',)
+        image = CloudinaryFileField(
+            options={
+                'tags': "directly_uploaded", })
 
         labels = {
             'event_name': 'Event Name',
@@ -26,9 +29,7 @@ class BaseEventForm(forms.ModelForm):
 
 
 class CreateEventForm(BaseEventForm):
-    image = CloudinaryFileField(
-        options={
-            'tags': "directly_uploaded", })
+    pass
 
 
 class EditEventForm(BaseEventForm):

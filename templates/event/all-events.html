@@ -17,7 +17,9 @@
                 <h3>{{ event.event_name}}</h3>
                 <h3>{{ event.event_date}}</h3>
                 <div class="details-buttons">
-                <button>Details</button>
+{#                <button>Details</button>#}
+                    <a href="{% url 'details event' slug=event.slug%}"><button>Details</button></a>
+
 {#                    <a href="{% url 'edit event' pk=car.pk %}" class="details-btn">Details</a>#}
 {#                </div>#}
             </div>
