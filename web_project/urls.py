@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('web_project.common.urls')),
     path('profile/', include('web_project.accounts.urls')),
     path('events/', include('web_project.events.urls')),
+    path('review/', include('web_project.techreview.urls')),
 ]

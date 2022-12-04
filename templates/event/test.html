@@ -1,0 +1,34 @@
+
+
+
+{% extends 'base/base.html' %}
+{% load cloudinary %}
+{% block content %}
+
+    {% if not events %}
+        <p class="no-articles">No events yet</p>
+    {% else %}
+
+        <section id="events">
+        <h1>Total events: {{ events.count }}</h1>
+        {% for event in events %}
+            <div class="event-card">
+                <div class="image-wrap">
+                    <img src="{{ event.photo.url }}"
+                         alt="Event Photo">
+                </div>
+                <h3>{{ event.event_name}}</h3>
+                <h3>{{ event.event_date}}</h3>
+                <div class="details-buttons">
+{#                <button>Details</button>#}
+                    <a href="{% url 'details event' slug=event.slug%}"><button>Details</button></a>
+
+{#                    <a href="{% url 'edit event' pk=car.pk %}" class="details-btn">Details</a>#}
+{#                </div>#}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+</section>
+
+{% endblock %}

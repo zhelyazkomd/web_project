@@ -2,10 +2,35 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <style>
 
+        ul {
+            list-style-type: none;
+            margin: 25px;
+            padding: 30px;
+            overflow: hidden;
+            background-color: gray;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: white;
+        }
+    </style>
     <title>Document</title>
-    <link rel="stylesheet"
-          href="{% static 'css/styles.css' %}">
+    {#    <link rel="stylesheet"#}
+    {#          href="{% static 'css/styles.css' %}">#}
 </head>
 <body>
 
@@ -15,11 +40,11 @@
         <li><a href="{% url 'sign up' %}">Sign up</a></li>
         <li><a href="{% url 'sign in' %}">Sign in</a></li>
     {% else %}
-        <li><a href="{% url 'edit profile' pk=request.user.pk%}">Edit Profile</a></li>
+        <li><a href="{% url 'edit profile' pk=request.user.pk %}">Edit Profile</a></li>
         <li><a href="{% url 'create event' %}">Create Event</a></li>
         <li><a href="{% url 'show all events' %}">Events</a></li>
 
-{#        <li><a href="{% url 'edit event' pk=request.user.pk %}">Edit Event</a></li>#}
+        {#        <li><a href="{% url 'edit event' pk=request.user.pk %}">Edit Event</a></li>#}
         <li><a href="{% url 'sign out' %}">Sign out</a></li>
     {% endif %}
     {#  <li><a href="contact.asp">Contact</a></li>#}

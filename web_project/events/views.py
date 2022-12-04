@@ -1,3 +1,4 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
@@ -29,11 +30,23 @@ class AllEventView(views.ListView):
     context_object_name = 'events'
     model = Event
     template_name = 'event/all-events.html'
+    # template_name = 'event/test.html'
 
 
 class EditEventView(views.UpdateView):
+    model = Event
     template_name = 'event/edit-event.html'
     form_class = EditEventForm
+    slug_url_kwarg = 'slug'
+
+    success_url = reverse_lazy('show all events')
+
+
+class DeleteEventView(views.DeleteView):
+    model = Event
+    template_name = 'event/delete-event.html'
+    success_url = reverse_lazy('show all events')
+
 
 
 class DetailsEventView(views.DetailView):
@@ -41,7 +54,6 @@ class DetailsEventView(views.DetailView):
     model = Event
     template_name = 'event/details-event.html'
     slug_url_kwarg = 'slug'
-
 
     '''Delete for final version'''
     # pk_url_kwarg = 'event_name'

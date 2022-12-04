@@ -19,6 +19,7 @@ class Event(models.Model):
     MAX_EVENT_NAME_LENGTH = 20
     MAX_COUNTRY_NAME_LENGTH = 56
     MAX_CITY_NAME_LENGTH = 85
+    MAX_DESCRIPTION_LENGTH = 150
 
     event_name = models.CharField(
         max_length=MAX_EVENT_NAME_LENGTH,
@@ -36,6 +37,12 @@ class Event(models.Model):
         blank=False,
         null=False,
 
+    )
+
+    description = models.TextField(
+        max_length=MAX_DESCRIPTION_LENGTH,
+        blank=False,
+        null=False,
     )
 
     capacity = models.PositiveIntegerField(
