@@ -1,0 +1,6 @@
+<h1>{{ featured.title }}</h1>
+    <h2>{{ featured.category }}</h2>
+    <h3>{{ featured.article_text }}</h3>
+
+<a href="{% url 'details featured' slug=featured.slug %}"><button>Edit</button></a>
+{% csrf_token %}

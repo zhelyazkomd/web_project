@@ -2,6 +2,7 @@ from enum import Enum
 from cloudinary import models as cloudinary_models
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.text import slugify
 
 from web_project.core.model_mixin import ChoicesEnumMixin
 
@@ -38,6 +39,12 @@ class Featured(models.Model):
         null=False,
     )
 
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+        null=False,
+    )
+
     photo = cloudinary_models.CloudinaryField(
         null=True,
         blank=True,
@@ -47,3 +54,9 @@ class Featured(models.Model):
         UserModel,
         on_delete=models.RESTRICT,
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f'{self.id}-{self.title}')
+        return super().save(*args, **kwargs)

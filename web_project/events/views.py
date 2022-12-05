@@ -48,7 +48,6 @@ class DeleteEventView(views.DeleteView):
     success_url = reverse_lazy('show all events')
 
 
-
 class DetailsEventView(views.DetailView):
     # event = get_event_by_slug()
     model = Event

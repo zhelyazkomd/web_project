@@ -34,6 +34,7 @@ class UserEditView(views.UpdateView):
     # form_class = UserEditView
     fields = ('first_name', 'last_name', 'gender', 'photo', 'short_introduction',)
 
+    #TODO:Check
     def get_success_url(self):
         # return reverse_lazy('index', kwargs={
         #     'pk': self.request.user.pk,

@@ -7,11 +7,15 @@ from web_project.techreview.models import Featured
 class BaseFeaturedForm(forms.ModelForm):
     class Meta:
         model = Featured
-        exclude = ('user',)
+        exclude = ('user', 'slug',)
         image = CloudinaryFileField(
             options={
                 'tags': "directly_uploaded", })
 
 
 class CreateFeaturedForm(BaseFeaturedForm):
+    pass
+
+
+class EditFeaturedForm(BaseFeaturedForm):
     pass

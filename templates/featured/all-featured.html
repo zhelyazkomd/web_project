@@ -32,13 +32,12 @@
              alt="{{ featured.title }}" width="300" height="250"
              class="alignnone size-medium wp-image-560930"/>
 
-        <a href="{% url 'index' %}"><h1>{{ featured.title }}</h1></a>
+        <a href="{% url 'details featured' slug=featured.slug %}"><h1>{{ featured.title }}</h1></a>
 
         <p>
             {{ featured.summary }}
         </p>
-        <a href="{% url 'index' %}"><button>Edit</button></a>
-        <a href="{% url 'index' %}"><button>Delete</button></a>
+        <a href="{% url 'edit featured' slug=featured.slug %}"><button>Edit</button></a>
 
 
     </article>
