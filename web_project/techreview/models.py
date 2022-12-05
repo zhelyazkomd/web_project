@@ -1,5 +1,5 @@
 from enum import Enum
-
+from cloudinary import models as cloudinary_models
 from django.db import models
 
 from web_project.core.model_mixin import ChoicesEnumMixin
@@ -13,9 +13,10 @@ class TypeOfEvent(ChoicesEnumMixin, Enum):
     Five = 5
 
 
-class Review(models.Model):
+class Featured(models.Model):
     MAX_TITLE_LENGTH = 30
     MAX_CATEGORY_LENGTH = 30
+    MAX_SUMMARY_LENGTH = 50
     MAX_DESCRIPTION_LENGTH = 255
 
     title = models.CharField(
@@ -30,11 +31,19 @@ class Review(models.Model):
         null=False,
     )
 
+    summary = models.TextField(
+        max_length=MAX_SUMMARY_LENGTH,
+        blank=False,
+        null=False,
+    )
+
     description = models.TextField(
         max_length=MAX_DESCRIPTION_LENGTH,
         blank=False,
         null=False,
     )
 
-    # rating =
-
+    photo = cloudinary_models.CloudinaryField(
+        null=True,
+        blank=True,
+    )
