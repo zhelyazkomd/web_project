@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% load cloudinary %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        article {
+            width: 300px;
+            border: 2px solid gray;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: static;
+        }
+
+        h1 {
+            color: green;
+        }
+    </style>
+</head>
+
+
+<body>
+{% for featured in featureds %}
+    <article>
+
+        <img src=
+                     "{{ featured.photo.url }}"
+             alt="{{ featured.title }}" width="300" height="250"
+             class="alignnone size-medium wp-image-560930"/>
+
+        <a href="{% url 'index' %}"><h1>{{ featured.title }}</h1></a>
+
+        <p>
+            {{ featured.summary }}
+        </p>
+        <a href="{% url 'index' %}"><button>Edit</button></a>
+        <a href="{% url 'index' %}"><button>Delete</button></a>
+
+
+    </article>
+{% endfor %}
+</body>
+
+</html>
+{% endblock %}
