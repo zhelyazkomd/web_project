@@ -59,4 +59,5 @@ class Featured(models.Model):
         super().save(*args, **kwargs)
         if not self.slug:
             self.slug = slugify(f'{self.id}-{self.title}')
+        print(self.user_id)
         return super().save(*args, **kwargs)

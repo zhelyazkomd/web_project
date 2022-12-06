@@ -1,6 +1,19 @@
 <h1>{{ featured.title }}</h1>
-    <h2>{{ featured.category }}</h2>
-    <h3>{{ featured.article_text }}</h3>
+<h2>{{ featured.category }}</h2>
+<h3>{{ featured.article_text }}</h3>
 
-<a href="{% url 'details featured' slug=featured.slug %}"><button>Edit</button></a>
+
+{% for comment in featured.featuredcomment_set.all %}
+    {{ comment.text }}
+{% endfor %}
+
+
+<form method="post" action="{% url 'comment featured' featured_id=featured.pk %}">
+    {{ comment_form }}
+    <button type="submit">Post</button>
+    {% csrf_token %}
+</form>
+<a href="{% url 'details featured' slug=featured.slug %}">
+    <button>Edit</button>
+</a>
 {% csrf_token %}

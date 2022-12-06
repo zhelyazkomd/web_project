@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
 
+from web_project.common.forms import FeaturedCommentForm
 from web_project.techreview.forms import CreateFeaturedForm, EditFeaturedForm
 from web_project.techreview.models import Featured
 
@@ -50,3 +51,9 @@ class DetailsFeaturedView(views.DetailView):
     model = Featured
     template_name = 'featured/details-featured.html'
     slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['comment_form'] = FeaturedCommentForm(instance=self.request.user)
+
+        return data

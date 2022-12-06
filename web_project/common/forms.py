@@ -1,9 +1,25 @@
-# from django.contrib.auth import forms as auth_forms
+from django import forms
+
+from web_project.common.models import FeaturedComment
+
+
+class FeaturedCommentForm(forms.ModelForm):
+    class Meta:
+        model = FeaturedComment
+        fields = ('text',)
+        widgets = {
+            'text': forms.Textarea(
+                attrs={
+                    'cols': 35,
+                    'rows': 10,
+                    'placeholder': 'Add comment...'
+                },
+            ),
+        }
+# from web_project.common.models import FeaturedComments
 #
-# from web_project.accounts.models import Profile
 #
-#
-# class ProfileEditForm(auth_forms.UserChangeForm):
+# class NewCommentForm(forms.ModelForm):
 #     class Meta:
-#         model = Profile
-#         fields = "__all__"
+#         model = FeaturedComments
+#         fields = ['content']
