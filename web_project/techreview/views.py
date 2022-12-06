@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -6,6 +7,8 @@ from django.views import generic as views
 from web_project.common.forms import FeaturedCommentForm
 from web_project.techreview.forms import CreateFeaturedForm, EditFeaturedForm
 from web_project.techreview.models import Featured
+
+UserModel = get_user_model()
 
 
 class CreateFeaturedView(views.CreateView):
@@ -53,7 +56,11 @@ class DetailsFeaturedView(views.DetailView):
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
+        form = FeaturedCommentForm(instance=self.request.user)
+        user_name = UserModel.objects.filter(email=self.request.user).get()
+
         data = super().get_context_data(**kwargs)
-        data['comment_form'] = FeaturedCommentForm(instance=self.request.user)
+        data['comment_form'] = form
+        data['user_name'] = user_name
 
         return data

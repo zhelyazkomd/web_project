@@ -1,13 +1,14 @@
 <h1>{{ featured.title }}</h1>
 <h2>{{ featured.category }}</h2>
 <h3>{{ featured.article_text }}</h3>
-
-
-{% for comment in featured.featuredcomment_set.all %}
-    {{ comment.text }}
-{% endfor %}
-
-
+<article>
+    <section>
+        {% for comment in featured.featuredcomment_set.all %}
+            {{ comment.text }}
+            {{ user_name }}
+        {% endfor %}
+    </section>
+</article>
 <form method="post" action="{% url 'comment featured' featured_id=featured.pk %}">
     {{ comment_form }}
     <button type="submit">Post</button>
