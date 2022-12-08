@@ -3,15 +3,18 @@
 <h3>{{ featured.article_text }}</h3>
 
 <form method="post" action="{% url 'like featured' featured_id=featured.pk %}">
-    {{ featured.user_id }}
+    {% if user_is_like.count != 1 %}
     <button>Like</button>
+    {% else %}
+    <button>Unlike</button>
+    {% endif %}
     {% csrf_token %}
 </form>
 
 <article>
     <section>
         {% for comment in featured.featuredcomment_set.all %}
-            {{ comment.text }}
+            {{ comment.text.as_p }}
             {{ user_name }}
         {% endfor %}
     </section>

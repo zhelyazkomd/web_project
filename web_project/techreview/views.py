@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from web_project.common.forms import FeaturedCommentForm
+from web_project.common.models import FeaturedLike
+from web_project.core.other_validators import user_liked_featured
 from web_project.techreview.forms import CreateFeaturedForm, EditFeaturedForm
 from web_project.techreview.models import Featured
 
@@ -54,13 +56,13 @@ class DetailsFeaturedView(views.DetailView):
     model = Featured
     template_name = 'featured/details-featured.html'
     slug_url_kwarg = 'slug'
+    current_featured = Featured.objects.get()
 
     def get_context_data(self, **kwargs):
         form = FeaturedCommentForm(instance=self.request.user)
         user_name = UserModel.objects.filter(email=self.request.user).get()
-
         data = super().get_context_data(**kwargs)
         data['comment_form'] = form
         data['user_name'] = user_name
-
+        data['user_is_like'] = user_liked_featured(self.request, self.current_featured.pk)
         return data

@@ -92,7 +92,6 @@ class FeaturedComment(models.Model):
         return super().save(*args, **kwargs)
 
 
-
 class FeaturedLike(models.Model):
     featured = models.ForeignKey(
         Featured,
