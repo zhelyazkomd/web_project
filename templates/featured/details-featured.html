@@ -1,6 +1,13 @@
 <h1>{{ featured.title }}</h1>
 <h2>{{ featured.category }}</h2>
 <h3>{{ featured.article_text }}</h3>
+
+<form method="post" action="{% url 'like featured' featured_id=featured.pk %}">
+    {{ featured.user_id }}
+    <button>Like</button>
+    {% csrf_token %}
+</form>
+
 <article>
     <section>
         {% for comment in featured.featuredcomment_set.all %}
