@@ -7,8 +7,8 @@ from django.views import generic as views
 from web_project.common.forms import FeaturedCommentForm
 from web_project.techreview.models import Featured
 
-
 UserModel = get_user_model()
+
 
 class IndexView(views.TemplateView):
     template_name = 'common/index.html'
@@ -16,10 +16,12 @@ class IndexView(views.TemplateView):
     # extra_context = {'comment_form': FeaturedCommentForm()}
 
     def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['comment_form'] = FeaturedCommentForm(instance=self.request.user)
+        user_verification = self.request.user
+        if user_verification.is_authenticated:
+            data = super().get_context_data(**kwargs)
+            data['comment_form'] = FeaturedCommentForm(instance=self.request.user)
 
-        return data
+            return data
 
 
 # class CommentFeatured(views.CreateView):
