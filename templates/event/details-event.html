@@ -3,7 +3,7 @@
     <h3>{{ event.capacity }}</h3>
     <h3>{{ event.price }}</h3>
     <h3>{{ event.type_of_event }}</h3>
-{#    <h3>{{ free_slots }}</h3>#}
+    <h3>{{ free_slots }}</h3>
 
 <a href="{% url 'register user for event' event_id=event.pk %}"><button>Register</button></a>
 <a href="{% url 'edit event' slug=event.slug %}"><button>Edit</button></a>

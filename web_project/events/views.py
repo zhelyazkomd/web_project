@@ -9,7 +9,7 @@ from web_project.common.uitls import get_current_url_path
 from web_project.core.other_validators import register_user_in_event, create_user_register_in_event
 from web_project.events.forms import CreateEventForm, EditEventForm
 from web_project.events.models import Event
-from web_project.events.utils import get_event_by_slug
+from web_project.events.utils import get_event_by_slug, remaining_event_capacity
 
 
 class CreateEventView(views.CreateView):
@@ -55,14 +55,15 @@ class DetailsEventView(views.DetailView):
     model = Event
     template_name = 'event/details-event.html'
     slug_url_kwarg = 'slug'
-    current_event = Event.objects.get()
 
     def get_context_data(self, **kwargs):
-        event_capacity = Event.capacity
-        register_user = RegisterEvent.objects.filter(event_id=self.current_event.pk).count()
+        current_slug = self.kwargs.get(self.slug_url_kwarg)
+        current_event = get_event_by_slug(current_slug).pk
+        event_capacity = get_event_by_slug(current_slug).capacity
+        register_user = RegisterEvent.objects.filter(event_id=current_event).count()
         data = super().get_context_data(**kwargs)
 
-        # data['free_slots'] = int(event_capacity) - int(register_user)
+        data['free_slots'] = remaining_event_capacity(event_capacity, register_user)
 
         return data
 
