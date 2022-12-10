@@ -56,7 +56,7 @@ class Event(models.Model):
         null=False,
     )
 
-    price = models.PositiveIntegerField(
+    starting_time = models.TimeField(
         blank=True,
         null=True,
     )

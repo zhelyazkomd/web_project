@@ -1,10 +1,10 @@
-from enum import Enum
+
 from cloudinary import models as cloudinary_models
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 
-from web_project.core.model_mixin import ChoicesEnumMixin
+
 
 UserModel = get_user_model()
 

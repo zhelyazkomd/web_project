@@ -14,7 +14,7 @@
 <article>
     <section>
         {% for comment in featured.featuredcomment_set.all %}
-            {{ comment.text.as_p }}
+            {{ comment.text }}
             {{ user_name }}
         {% endfor %}
     </section>

@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from web_project.techreview.models import Featured
+
+
+@admin.register(Featured)
+class FeaturedAdmin(admin.ModelAdmin):
+    pass

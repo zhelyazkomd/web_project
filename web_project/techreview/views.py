@@ -61,6 +61,7 @@ class DetailsFeaturedView(views.DetailView):
     def get_context_data(self, **kwargs):
         form = FeaturedCommentForm(instance=self.request.user)
         user_name = UserModel.objects.filter(email=self.request.user).get()
+
         data = super().get_context_data(**kwargs)
         data['comment_form'] = form
         data['user_name'] = user_name

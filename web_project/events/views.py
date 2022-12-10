@@ -4,6 +4,9 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic as views
 
+from web_project.common.models import RegisterEvent
+from web_project.common.uitls import get_current_url_path
+from web_project.core.other_validators import register_user_in_event, create_user_register_in_event
 from web_project.events.forms import CreateEventForm, EditEventForm
 from web_project.events.models import Event
 from web_project.events.utils import get_event_by_slug
@@ -49,12 +52,21 @@ class DeleteEventView(views.DeleteView):
 
 
 class DetailsEventView(views.DetailView):
-    # event = get_event_by_slug()
     model = Event
     template_name = 'event/details-event.html'
     slug_url_kwarg = 'slug'
+    current_event = Event.objects.get()
 
-    '''Delete for final version'''
+    def get_context_data(self, **kwargs):
+        event_capacity = Event.capacity
+        register_user = RegisterEvent.objects.filter(event_id=self.current_event.pk).count()
+        data = super().get_context_data(**kwargs)
+
+        # data['free_slots'] = int(event_capacity) - int(register_user)
+
+        return data
+
+    '''Delete in final version'''
     # pk_url_kwarg = 'event_name'
 
     # def get_context_data(self, **kwargs):
@@ -70,3 +82,14 @@ class DetailsEventView(views.DetailView):
     #     self.event_slug = get_object_or_404(Event, slug=self.kwargs['slug'])
     #     print(self.event_slug)
     #     return Event.objects.filter(slug='12-big-data2')
+
+
+def register_event(request, event_id):
+    registered = register_user_in_event(request, event_id)
+
+    if registered:
+        registered.delete()
+    else:
+        create_user_register_in_event(request, event_id)
+
+    return redirect(get_current_url_path(request))

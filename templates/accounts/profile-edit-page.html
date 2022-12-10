@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% load cloudinary %}
 {% block content %}
+    #TODO: Check
     <form method="post" action="{% url 'edit profile' pk=request.user.pk %}" enctype="multipart/form-data">
         {{ form.as_p }}
         <button>Save</button>

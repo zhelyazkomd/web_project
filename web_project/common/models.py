@@ -3,7 +3,7 @@ from django.db import models
 # from django.urls import reverse
 # from django.utils import timezone
 # from django.utils.text import slugify
-
+from web_project.events.models import Event
 from web_project.techreview.models import Featured
 
 UserModel = get_user_model()
@@ -104,3 +104,23 @@ class FeaturedLike(models.Model):
         UserModel,
         on_delete=models.RESTRICT,
     )
+
+
+class RegisterEvent(models.Model):
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
+    )
+
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.RESTRICT,
+    )
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     if not self.user_id:
+    #         self.user_id = self.user
+    #     if not self.event_id:
+    #         self.event_id = self.event.pk
+    #     return super().save(*args, **kwargs)

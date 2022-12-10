@@ -53,7 +53,7 @@ class AppUserAdmin(auth_admin.UserAdmin):
                     "is_staff",
                     "is_superuser",
                     "groups",
-                    "user_permissions",
+                    # "user_permissions",
                 ),
             },
         ),

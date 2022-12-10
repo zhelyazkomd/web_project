@@ -8,7 +8,8 @@ from django.views import generic as views
 from web_project.common.forms import FeaturedCommentForm
 from web_project.common.models import FeaturedLike
 from web_project.common.uitls import get_current_url_path
-from web_project.core.other_validators import user_liked_featured, create_user_like_featured
+from web_project.core.other_validators import user_liked_featured, create_user_like_featured, register_user_in_event, \
+    create_user_register_in_event
 from web_project.techreview.models import Featured
 
 UserModel = get_user_model()
@@ -83,4 +84,15 @@ def like_featured(request, featured_id):
         liked_featured_by_user.delete()
     else:
         create_user_like_featured(request, featured_id)
+    return redirect(get_current_url_path(request))
+
+
+def register_event(request, event_id):
+    registered = register_user_in_event(request, event_id)
+
+    if registered:
+        registered.delete()
+    else:
+        create_user_register_in_event(request, event_id)
+
     return redirect(get_current_url_path(request))

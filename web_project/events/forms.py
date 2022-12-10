@@ -24,7 +24,10 @@ class BaseEventForm(forms.ModelForm):
                 attrs={
                     'placeholder': 'mm/dd/yyyy',
                     'type': 'date',
-                })
+                }),
+            #TODO:Fix problem with time
+            # 'starting_time': forms.TimeField(
+            #     widget=forms.TimeInput(format='%H:%M'),)
         }
 
 
