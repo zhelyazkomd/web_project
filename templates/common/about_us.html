@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="about-section">
+  <h1>About Us Page</h1>
+  <p>We are an organization that shows people what tomorrow's world will be like..</p>
+</div>
+<head>
+<link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+</head>
+<h2 style="text-align:center">Our Team</h2>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'images/CEO.jpg' %}" alt="Jane" style="width:100%">
+      <div class="container">
+        <h2>Zhelyazko Dimitrov</h2>
+        <p class="title">Founder</p>
+        <p>Creator of this web django project.</p>
+        <p>Zhelyazkomd@gmail.com</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{#  <div class="column">#}
+{#    <div class="card">#}
+{#      <img src="/w3images/team2.jpg" alt="Mike" style="width:100%">#}
+{#      <div class="container">#}
+{#        <h2>Mike Ross</h2>#}
+{#        <p class="title">Art Director</p>#}
+{#        <p>Some text that describes me lorem ipsum ipsum lorem.</p>#}
+{#        <p>mike@example.com</p>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#  <div class="column">#}
+{#    <div class="card">#}
+{#      <img src="/w3images/team3.jpg" alt="John" style="width:100%">#}
+{#      <div class="container">#}
+{#        <h2>John Doe</h2>#}
+{#        <p class="title">Designer</p>#}
+{#        <p>Some text that describes me lorem ipsum ipsum lorem.</p>#}
+{#        <p>john@example.com</p>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}

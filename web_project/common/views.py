@@ -96,3 +96,7 @@ def register_event(request, event_id):
         create_user_register_in_event(request, event_id)
 
     return redirect(get_current_url_path(request))
+
+
+class AboutUsView(views.TemplateView):
+    template_name = 'common/about_us.html'
