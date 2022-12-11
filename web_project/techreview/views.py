@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
 
+from web_project.accounts.models import Profile
 from web_project.common.forms import FeaturedCommentForm
-from web_project.common.models import FeaturedLike
+from web_project.common.models import FeaturedLike, FeaturedComment
 from web_project.core.other_validators import user_liked_featured
 from web_project.techreview.utils import get_featured_id_from_slug
 from web_project.techreview.forms import CreateFeaturedForm, EditFeaturedForm
@@ -63,9 +64,11 @@ class DetailsFeaturedView(views.DetailView):
         user_name = UserModel.objects.filter(email=self.request.user).get()
         current_slug = self.kwargs.get(self.slug_url_kwarg)
         current_featured = get_featured_id_from_slug(current_slug).pk
+        comment_count = FeaturedComment.objects.filter(featured_id=current_featured).count()
 
         data = super().get_context_data(**kwargs)
         data['comment_form'] = form
         data['user_name'] = user_name
         data['user_is_like'] = user_liked_featured(self.request, current_featured)
+        data['comment_count'] = comment_count
         return data

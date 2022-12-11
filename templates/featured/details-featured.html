@@ -1,30 +1,93 @@
-<h1>{{ featured.title }}</h1>
-<h2>{{ featured.category }}</h2>
-<h3>{{ featured.article_text }}</h3>
+{% extends 'base/base.html' %}
+{% block content %}
 
-<form method="post" action="{% url 'like featured' featured_id=featured.pk %}">
-    {% if user_is_like.count != 1 %}
-    <button>Like</button>
-    {% else %}
-    <button>Unlike</button>
-    {% endif %}
-    {% csrf_token %}
-</form>
+    {% load static %}
+    {#    <h1>{{ featured.title }}</h1>#}
+    {#    <h2>{{ featured.category }}</h2>#}
+    {#    <h3>{{ featured.article_text }}</h3>#}
 
-<article>
-    <section>
-        {% for comment in featured.featuredcomment_set.all %}
-            {{ comment.text }}
-            {{ user_name }}
-        {% endfor %}
+    {#<form method="post" action="{% url 'like featured' featured_id=featured.pk %}">#}
+    {#    {% if user_is_like.count != 1 %}#}
+    {#        <button>Like</button>#}
+    {#    {% else %}#}
+    {#        <button>Unlike</button>#}
+    {#    {% endif %}#}
+    {#    {% csrf_token %}#}
+    {#</form>#}
+    {##}
+    {#<article>#}
+    {#    <section>#}
+    {#        {% for comment in featured.featuredcomment_set.all %}#}
+    {#            {{ comment.text }}#}
+    {#            {{ user_name }}#}
+    {#        {% endfor %}#}
+    {#    </section>#}
+    {#</article>#}
+    {#<form method="post" action="{% url 'comment featured' featured_id=featured.pk %}">#}
+    {#    {{ comment_form }}#}
+    {#    <button type="submit">Post</button>#}
+    {#    {% csrf_token %}#}
+    {#</form>#}
+    {#<a href="{% url 'details featured' slug=featured.slug %}">#}
+    {#    <button>Edit</button>#}
+    {#</a>#}
+    {#{% csrf_token %}#}
+    <body>
+    <main>
+        <h1>
+            {{ featured.title }}
+        </h1>
+        <h2>{{ featured.category }}</h2>
+        <p>
+            {{ featured.article_text }}
+        </p>
+    </main>
+
+    </body>
+
+    <form method="post" action="{% url 'like featured' featured_id=featured.pk %}">
+        {% if user_is_like.count != 1 %}
+            <button>Like</button>
+        {% else %}
+            <button>Unlike</button>
+        {% endif %}
+        {% csrf_token %}
+    </form>
+    <a href="{% url 'edit featured' slug=featured.slug %}">
+        <button>Edit</button>
+    </a>
+
+
+    <link href="{% static 'css/details_featured.css' %}" rel="stylesheet">
+
+    <section class="content-item" id="comments">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <form method="post" action="{% url 'comment featured' featured_id=featured.pk %}"
+                          enctype="multipart/form-data">
+                        <h3 class="pull-left">New Comment</h3>
+                        <fieldset>
+
+                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                {{ comment_form }}
+                                <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                                {% csrf_token %}
+                            </div>
+                        </fieldset>
+                    </form>
+                    <h3>{{ comment_count }} Comment</h3>
+                    <div class="media">
+                        <div class="media-body">
+                            {% for comment in featured.featuredcomment_set.all %}
+                                <h4 class="media-heading">{{ user_name }}</h4>
+                                <p>{{ comment.text }}</p>
+                        </div>
+                    </div>
+                    -----------------------------------------------
+                </div>
+            </div>
+        </div>
+                            {% endfor %}
     </section>
-</article>
-<form method="post" action="{% url 'comment featured' featured_id=featured.pk %}">
-    {{ comment_form }}
-    <button type="submit">Post</button>
-    {% csrf_token %}
-</form>
-<a href="{% url 'details featured' slug=featured.slug %}">
-    <button>Edit</button>
-</a>
-{% csrf_token %}
+{% endblock %}

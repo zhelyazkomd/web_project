@@ -34,6 +34,11 @@
 </head>
 <body>
 
+<style>
+    body {
+  background-color: silver;
+}
+    </style>
 <ul>
     <li><a href="{% url 'index' %}">Home</a></li>
     {% if not request.user.is_authenticated %}
