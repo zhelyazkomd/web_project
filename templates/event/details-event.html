@@ -1,10 +1,44 @@
-<h1>{{ event.event_name }}</h1>
-    <h2>{{ event.event_date }}</h2>
-    <h3>{{ event.capacity }}</h3>
-    <h3>{{ event.price }}</h3>
-    <h3>{{ event.type_of_event }}</h3>
-    <h3>{{ free_slots }}</h3>
+{% extends 'base/base.html' %}
+{% load static %}
+{#<h1>{{ event.event_name }}</h1>#}
+{#    <h2>{{ event.event_date }}</h2>#}
+{#    <h3>{{ event.capacity }}</h3>#}
+{#    <h3>{{ event.price }}</h3>#}
+{#    <h3>{{ event.type_of_event }}</h3>#}
+{#    <h3>{{ free_slots }}</h3>#}
 
-<a href="{% url 'register user for event' event_id=event.pk %}"><button>Register</button></a>
-<a href="{% url 'edit event' slug=event.slug %}"><button>Edit</button></a>
-{% csrf_token %}
+{#<a href="{% url 'register user for event' event_id=event.pk %}"><button>Register</button></a>#}
+{#<a href="{% url 'edit event' slug=event.slug %}"><button>Edit</button></a>#}
+{#{% csrf_token %}#}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/event_details.css' %}">
+</head>
+<section id="game-details">
+        <h1>Event Details</h1>
+        <div class="info-section">
+            <div class="game-header">
+                <img class="game-img"
+                     src="{{ event.photo.url }}"
+                     alt='game image'/>
+                <h1>{{ event.event_name }} <span class="levels">Capacity: {{ event.capacity }}</span></h1>
+                <p><span class="type">Type of event: {{ event.type_of_event}}</span></p>
+                {% if game.max_level %}
+                    <p><span class="type">Max Level: {{ game.max_level }}</span></p>
+                {% endif %}
+            </div>
+                <p class="text">
+                    {{ event.description }}
+                </p>
+{#            <div class="buttons">#}
+
+                <a href="{% url 'register user for event' event_id=event.pk %}" class="button">Register</a>
+                <a href="{% url 'edit event' slug=event.slug %}" class="button">Edit</a>
+{#            </div>#}
+{#<a href="{% url 'register user for event' event_id=event.pk %}"><button>Register</button></a>#}
+{#<a href="{% url 'edit event' slug=event.slug %}"><button>Edit</button></a>#}
+{#{% csrf_token %}        #}
+        </div>
+    </section>
+{% endblock %}
