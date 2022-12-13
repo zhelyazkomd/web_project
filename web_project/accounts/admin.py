@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import admin as auth_admin, get_user_model
 
 from web_project.accounts.forms import SignUpForm, UserEditForm
+from web_project.accounts.models import Profile
 
 UserModel = get_user_model()
 
@@ -53,7 +54,7 @@ class AppUserAdmin(auth_admin.UserAdmin):
                     "is_staff",
                     "is_superuser",
                     "groups",
-                    # "user_permissions",
+                    "user_permissions",
                 ),
             },
         ),
@@ -63,3 +64,4 @@ class AppUserAdmin(auth_admin.UserAdmin):
                 "last_login",
             )}),
     )
+

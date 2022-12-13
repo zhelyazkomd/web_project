@@ -41,3 +41,9 @@ class UserEditForm(auth_forms.UserChangeForm):
                 'tags': "directly_uploaded", })
         # fields = "__all__"
         # field_classes = {"username": auth_forms.UsernameField}
+
+
+class SetPasswordForm(auth_forms.SetPasswordForm):
+    class Meta:
+        model = UserModel
+        fields = ['new_password1', 'new_password2']

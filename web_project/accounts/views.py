@@ -2,7 +2,7 @@ from django.contrib.auth import views as auth_views, login, get_user_model
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from web_project.accounts.forms import SignUpForm
+from web_project.accounts.forms import SignUpForm, SetPasswordForm
 from web_project.accounts.models import Profile
 from web_project.accounts.utils import get_user_profile, get_user_email
 
@@ -35,7 +35,7 @@ class UserEditView(views.UpdateView):
     # form_class = UserEditView
     fields = ('first_name', 'last_name', 'gender', 'photo', 'short_introduction',)
 
-    # TODO:Check
+    # TODO:Check return to user profile
     def get_success_url(self):
         # return reverse_lazy('index', kwargs={
         #     'pk': self.request.user.pk,
@@ -59,9 +59,20 @@ class UserDetailsView(views.DetailView):
         data['request_user_email'] = get_user_email(request_user_pk).email
         data['request_user_descriptions'] = get_user_profile(request_user_pk).short_introduction
 
-
-
         return data
+
+
+class UserChangePasswordView(views.UpdateView):
+    model = UserModel
+    form_class = SetPasswordForm
+    template_name = 'accounts/profile-change-password.html'
+
+    def get_form_kwargs(self):
+        s = self.request.user.pk
+        user = self.kwargs.get(get_user_profile(s))
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = user
+        return kwargs
 
 
 class UserDeleteView(views.DeleteView):
