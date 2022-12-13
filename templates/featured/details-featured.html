@@ -80,7 +80,9 @@
                     <div class="media">
                         <div class="media-body">
                             {% for comment in featured.featuredcomment_set.all %}
-                                <h4 class="media-heading">{{ user_name }}</h4>
+                                <a href="{% url 'details profile' pk=comment.user.pk %}">
+                                <h4 class="media-heading">{{ comment.user }}</h4>
+                                    </a>
                                 <p>{{ comment.text }}</p>
                         </div>
                     </div>

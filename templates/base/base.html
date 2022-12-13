@@ -28,7 +28,7 @@
             background-color: white;
         }
     </style>
-    <title>Document</title>
+    <title>Techpoint</title>
     {#    <link rel="stylesheet"#}
     {#          href="{% static 'css/styles.css' %}">#}
 </head>
@@ -46,6 +46,7 @@
         <li><a href="{% url 'sign in' %}">Sign in</a></li>
     {% else %}
         <li><a href="{% url 'edit profile' pk=request.user.pk %}">Edit Profile</a></li>
+        <li><a href="{% url 'details profile' pk=request.user.pk %}">My Profile</a></li>
         <li><a href="{% url 'create event' %}">Create Event</a></li>
         <li><a href="{% url 'show all events' %}">Events</a></li>
         <li><a href="{% url 'all featured' %}">Featured</a></li>

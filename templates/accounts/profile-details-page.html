@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/profile-details.css' %}">
+    <form enctype="multipart/form-data">
+    <section id="game-details">
+        <h1>Profile Details</h1>
+        <div class="info-section">
+            <div class="game-header">
+                {% if profile.photo.url %}
+                <img class="game-img" src="{{ profile.photo.url }}" alt='profile-image'/>
+                {% else %}
+                <img class="game-img" src="{% static 'images/default-profile.png' %}" alt='profile-image'/>
+                {% endif %}
+                {% if request_user_full_name %}
+                <p class="text">Name: {{ request_user_full_name }}</p>
+                {% endif %}
+                <p class="text">Email: {{ request_user_email }}</p>
+                <p class="text">Age: {{ request_user_age }}</p>
+                <p class="text">Shor description: {{ request_user_descriptions }}</p>
+                <div class="buttons">
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock %}

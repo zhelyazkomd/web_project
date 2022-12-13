@@ -4,6 +4,7 @@ from django.views import generic as views
 
 from web_project.accounts.forms import SignUpForm
 from web_project.accounts.models import Profile
+from web_project.accounts.utils import get_user_profile, get_user_email
 
 UserModel = get_user_model()
 
@@ -41,6 +42,26 @@ class UserEditView(views.UpdateView):
         # })
 
         return reverse_lazy('index')
+
+
+class UserDetailsView(views.DetailView):
+    model = Profile
+    template_name = 'accounts/profile-details-page.html'
+
+    pk_url_kwarg = 'pk'
+
+    def get_context_data(self, **kwargs):
+        request_user_pk = self.kwargs.get(self.pk_url_kwarg)
+
+        data = super().get_context_data(**kwargs)
+        data['request_user_age'] = get_user_profile(request_user_pk).age
+        data['request_user_full_name'] = get_user_profile(request_user_pk).full_name
+        data['request_user_email'] = get_user_email(request_user_pk).email
+        data['request_user_descriptions'] = get_user_profile(request_user_pk).short_introduction
+
+
+
+        return data
 
 
 class UserDeleteView(views.DeleteView):
