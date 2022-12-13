@@ -23,22 +23,20 @@
                      src="{{ event.photo.url }}"
                      alt='game image'/>
                 <h1>{{ event.event_name }} <span class="levels">Capacity: {{ event.capacity }}</span></h1>
+                 <h2>Remaining capacity {{ free_slots }}</h2>
                 <p><span class="type">Type of event: {{ event.type_of_event}}</span></p>
-                {% if game.max_level %}
-                    <p><span class="type">Max Level: {{ game.max_level }}</span></p>
-                {% endif %}
             </div>
                 <p class="text">
                     {{ event.description }}
                 </p>
-{#            <div class="buttons">#}
-
+            <div class="buttons">
+                {% if not user_registered_for_event %}
                 <a href="{% url 'register user for event' event_id=event.pk %}" class="button">Register</a>
-                <a href="{% url 'edit event' slug=event.slug %}" class="button">Edit</a>
-{#            </div>#}
-{#<a href="{% url 'register user for event' event_id=event.pk %}"><button>Register</button></a>#}
-{#<a href="{% url 'edit event' slug=event.slug %}"><button>Edit</button></a>#}
-{#{% csrf_token %}        #}
+                {% else %}
+                <a href="{% url 'register user for event' event_id=event.pk %}" class="button">Unregister</a>
+                {% endif %}
+            <a href="{% url 'edit event' slug=event.slug %}" class="button">Edit</a>
+            </div>
         </div>
     </section>
 {% endblock %}
