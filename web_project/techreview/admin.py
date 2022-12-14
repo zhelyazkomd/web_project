@@ -5,4 +5,5 @@ from web_project.techreview.models import Featured
 
 @admin.register(Featured)
 class FeaturedAdmin(admin.ModelAdmin):
-    pass
+    ordering = ('id',)
+    list_display = ['id', 'title', 'category', 'summary']

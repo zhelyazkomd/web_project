@@ -43,7 +43,7 @@ class UserEditForm(auth_forms.UserChangeForm):
         # field_classes = {"username": auth_forms.UsernameField}
 
 
-class SetPasswordForm(auth_forms.SetPasswordForm):
+class SetPasswordForm(auth_forms.PasswordChangeForm):
     class Meta:
         model = UserModel
-        fields = ['new_password1', 'new_password2']
+        fields = ['old_password', 'new_password1', 'new_password2']

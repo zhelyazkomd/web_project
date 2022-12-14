@@ -1,8 +1,7 @@
-
 from django.urls import path, include
 
 from web_project.accounts.views import SignUpView, SignInView, SignOutView, UserEditView, UserDeleteView, \
-    UserDetailsView, UserChangePasswordView
+    UserDetailsView, password_change
 
 urlpatterns = (
     path('sign-up/', SignUpView.as_view(), name='sign up'),
@@ -12,6 +11,7 @@ urlpatterns = (
         path('edit/', UserEditView.as_view(), name='edit profile'),
         path('delete/', UserDeleteView.as_view(), name='delete profile'),
         path('details/', UserDetailsView.as_view(), name='details profile'),
-        path('change_password/', UserChangePasswordView.as_view(), name='user change password'),
+        path('change_password/', password_change, name='user change password'),
     ])),
+    # path('change_password/', UserChangePasswordView.as_view(), name='user change password'),
 )

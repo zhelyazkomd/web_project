@@ -87,3 +87,4 @@ class Event(models.Model):
         if not self.slug:
             self.slug = slugify(f'{self.id}-{self.event_name}')
         return super().save(*args, **kwargs)
+

@@ -1,4 +1,7 @@
-from django.contrib.auth import views as auth_views, login, get_user_model
+from django.contrib.auth import views as auth_views, login, get_user_model, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -62,17 +65,17 @@ class UserDetailsView(views.DetailView):
         return data
 
 
-class UserChangePasswordView(views.UpdateView):
-    model = UserModel
-    form_class = SetPasswordForm
-    template_name = 'accounts/profile-change-password.html'
+@login_required
+def password_change(request, pk):
+    user = request.user
+    form = SetPasswordForm(user=user, data=request.POST or None)
 
-    def get_form_kwargs(self):
-        s = self.request.user.pk
-        user = self.kwargs.get(get_user_profile(s))
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = user
-        return kwargs
+    if form.is_valid():
+        form.save()
+        update_session_auth_hash(request, form.user)
+        return redirect('index')
+
+    return render(request, 'accounts/profile-change-password.html', {'form': form})
 
 
 class UserDeleteView(views.DeleteView):
