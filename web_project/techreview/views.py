@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth import mixins as auth_mixins
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -8,6 +9,7 @@ from web_project.accounts.models import Profile
 from web_project.common.forms import FeaturedCommentForm
 from web_project.common.models import FeaturedLike, FeaturedComment
 from web_project.core.other_validators import user_liked_featured
+from web_project.core.permissions_mixin import PermissionMixin
 from web_project.techreview.utils import get_featured_id_from_slug
 from web_project.techreview.forms import CreateFeaturedForm, EditFeaturedForm
 from web_project.techreview.models import Featured
@@ -15,7 +17,7 @@ from web_project.techreview.models import Featured
 UserModel = get_user_model()
 
 
-class CreateFeaturedView(views.CreateView):
+class CreateFeaturedView(PermissionMixin, views.CreateView):
     template_name = 'featured/create-featured.html'
     form_class = CreateFeaturedForm
 
@@ -38,7 +40,7 @@ class AllFeaturedView(views.ListView):
     template_name = 'featured/all-featured.html'
 
 
-class EditFeaturedView(views.UpdateView):
+class EditFeaturedView(PermissionMixin, views.UpdateView):
     model = Featured
     template_name = 'featured/edit-featured.html'
     form_class = EditFeaturedForm
@@ -47,7 +49,7 @@ class EditFeaturedView(views.UpdateView):
     success_url = reverse_lazy('all featured')
 
 
-class DeleteFeaturedView(views.DeleteView):
+class DeleteFeaturedView(PermissionMixin,views.DeleteView):
     model = Featured
     template_name = 'featured/delete-featured.html'
     slug_url_kwarg = 'slug'

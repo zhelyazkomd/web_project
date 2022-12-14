@@ -1,4 +1,4 @@
-from django.core.exceptions import ImproperlyConfigured
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -7,12 +7,13 @@ from django.views import generic as views
 from web_project.common.models import RegisterEvent
 from web_project.common.uitls import get_current_url_path
 from web_project.core.other_validators import register_user_in_event, create_user_register_in_event
+from web_project.core.permissions_mixin import PermissionMixin
 from web_project.events.forms import CreateEventForm, EditEventForm
 from web_project.events.models import Event
 from web_project.events.utils import get_event_by_slug, remaining_event_capacity, current_user_registered_for_event
 
 
-class CreateEventView(views.CreateView):
+class CreateEventView(PermissionMixin,views.CreateView):
     template_name = 'event/create-event.html'
     form_class = CreateEventForm
 
@@ -36,7 +37,7 @@ class AllEventView(views.ListView):
     # template_name = 'event/test.html'
 
 
-class EditEventView(views.UpdateView):
+class EditEventView(PermissionMixin, views.UpdateView):
     model = Event
     template_name = 'event/edit-event.html'
     form_class = EditEventForm
@@ -45,7 +46,7 @@ class EditEventView(views.UpdateView):
     success_url = reverse_lazy('show all events')
 
 
-class DeleteEventView(views.DeleteView):
+class DeleteEventView(PermissionMixin, views.DeleteView):
     model = Event
     template_name = 'event/delete-event.html'
     success_url = reverse_lazy('show all events')

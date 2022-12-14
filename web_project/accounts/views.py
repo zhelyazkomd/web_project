@@ -40,11 +40,11 @@ class UserEditView(views.UpdateView):
 
     # TODO:Check return to user profile
     def get_success_url(self):
-        # return reverse_lazy('index', kwargs={
-        #     'pk': self.request.user.pk,
-        # })
+        return reverse_lazy('details profile', kwargs={
+            'pk': self.request.user.pk,
+        })
 
-        return reverse_lazy('index')
+        # return reverse_lazy('index')
 
 
 class UserDetailsView(views.DetailView):
