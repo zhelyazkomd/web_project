@@ -1,6 +1,8 @@
 from enum import Enum
 
 from django.contrib.auth import models as auth_models
+from django.core import validators
+
 from django.db import models
 from django.utils import timezone
 
@@ -8,6 +10,8 @@ from web_project.accounts.managers import AppUserManager
 from web_project.core.model_mixin import ChoicesEnumMixin
 
 from cloudinary import models as cloudinary_models
+
+from web_project.core.parameters_validators import validate_is_letters
 
 
 class Gender(ChoicesEnumMixin, Enum):
@@ -41,7 +45,10 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 # TODO: CREATE VALIDATORS
 class Profile(models.Model):
     MAX_FIRST_NAME_LENGTH = 30
+    MIN_FIRST_NAME_LENGTH = 2
+
     MAX_LAST_NAME_LENGTH = 30
+    MIN_LAST_NAME_LENGTH = 2
 
     MAX_INTRODUCTION_LENGTH = 80
 
@@ -49,12 +56,20 @@ class Profile(models.Model):
         max_length=MAX_FIRST_NAME_LENGTH,
         blank=True,
         null=True,
+        validators=(
+            validators.MinLengthValidator(MIN_FIRST_NAME_LENGTH),
+            validate_is_letters,
+        )
     )
 
     last_name = models.CharField(
         max_length=MAX_LAST_NAME_LENGTH,
         blank=True,
         null=True,
+        validators=(
+            validators.MinLengthValidator(MIN_LAST_NAME_LENGTH),
+            validate_is_letters,
+        )
     )
 
     age = models.PositiveIntegerField()

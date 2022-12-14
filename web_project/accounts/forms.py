@@ -1,6 +1,7 @@
 from cloudinary.forms import CloudinaryFileField
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django import forms
+from django.contrib.auth.models import Group
 
 from web_project.accounts.models import Profile, AppUser
 
@@ -28,6 +29,9 @@ class SignUpForm(auth_forms.UserCreationForm):
         )
         if commit:
             profile.save()
+
+        user_group = Group.objects.get(name='Normal_users')
+        user.groups.add(user_group)
 
         return user
 
