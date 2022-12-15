@@ -1,4 +1,4 @@
-
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -13,12 +13,11 @@ from web_project.events.models import Event
 from web_project.events.utils import get_event_by_slug, remaining_event_capacity, current_user_registered_for_event
 
 
-class CreateEventView(PermissionMixin,views.CreateView):
+class CreateEventView(PermissionMixin, views.CreateView):
     template_name = 'event/create-event.html'
     form_class = CreateEventForm
 
-    # TODO: CHANGE TO EVENT DETAILS
-    # success_url = reverse_lazy('index')
+    success_url = reverse_lazy('show all events')
 
     def post(self, request, *args, **kwargs):
         form = CreateEventForm(request.POST, request.FILES)
@@ -26,7 +25,7 @@ class CreateEventView(PermissionMixin,views.CreateView):
             event = form.save(commit=False)
             event.user = request.user
             event.save()
-            return HttpResponseRedirect(reverse_lazy('index'))
+            return HttpResponseRedirect(reverse_lazy('show all events'))
         return render(request, 'event/create-event.html', {'form': form})
 
 
@@ -34,7 +33,6 @@ class AllEventView(views.ListView):
     context_object_name = 'events'
     model = Event
     template_name = 'event/all-events.html'
-    # template_name = 'event/test.html'
 
 
 class EditEventView(PermissionMixin, views.UpdateView):
@@ -69,24 +67,8 @@ class DetailsEventView(views.DetailView):
 
         return data
 
-    '''Delete in final version'''
-    # pk_url_kwarg = 'event_name'
 
-    # def get_context_data(self, **kwargs):
-    #     pass
-    # def get_slug_field(self):
-    #
-    #
-    #
-    # def get_queryset(self):
-    #     # get_slug = Event.objects.filter(pk=request.pk)
-    #     # return super().get_queryset().filter(event__name=self.kwargs['event_name'])
-    #     # return get_object_or_404(Event, slug=self.kwargs['event_slug'])
-    #     self.event_slug = get_object_or_404(Event, slug=self.kwargs['slug'])
-    #     print(self.event_slug)
-    #     return Event.objects.filter(slug='12-big-data2')
-
-
+@login_required
 def register_event(request, event_id):
     registered = register_user_in_event(request, event_id)
 
