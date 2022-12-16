@@ -42,7 +42,6 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     objects = AppUserManager()
 
 
-# TODO: CREATE VALIDATORS
 class Profile(models.Model):
     MAX_FIRST_NAME_LENGTH = 30
     MIN_FIRST_NAME_LENGTH = 2

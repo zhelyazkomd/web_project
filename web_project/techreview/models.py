@@ -75,3 +75,6 @@ class Featured(models.Model):
             self.slug = slugify(f'{self.id}-{self.title}')
         print(self.user_id)
         return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.id} - {self.title}'

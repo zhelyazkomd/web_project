@@ -11,7 +11,12 @@ UserModel = get_user_model()
 class AppUserAdmin(auth_admin.UserAdmin):
     ordering = ('email',)
     list_display = ['email', 'date_joined', 'is_staff', ]
-    list_filter = ()
+    list_filter = ('is_staff',)
+    search_fields = ("email",)
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+    )
     form = UserEditForm
     add_form = SignUpForm
     add_fieldsets = (
@@ -20,7 +25,6 @@ class AppUserAdmin(auth_admin.UserAdmin):
             {
                 "classes": ("wide",),
                 "fields": ("email", 'password1', 'password2'),
-                # TODO: add""password1", "password2","
             },
         ),
         (
@@ -64,4 +68,3 @@ class AppUserAdmin(auth_admin.UserAdmin):
                 "last_login",
             )}),
     )
-
