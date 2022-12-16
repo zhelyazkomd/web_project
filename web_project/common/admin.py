@@ -17,7 +17,7 @@ class CommentAdmin(admin.ModelAdmin):
     #TODO:fix to correct page
     @staticmethod
     def view_featured_link(obj):
-        featured_name = Featured.objects.filter(featuredcomment=obj).get().title
+        # featured_name = Featured.objects.filter(featuredcomment=obj).get().title
         featured = Featured.objects.filter(featuredcomment=obj).get()
         current_featured = featured.id
         url = (

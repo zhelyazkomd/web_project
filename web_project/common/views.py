@@ -2,7 +2,7 @@
 # from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views import generic as views
 
 from web_project.common.forms import FeaturedCommentForm
@@ -100,3 +100,19 @@ def register_event(request, event_id):
 
 class AboutUsView(views.TemplateView):
     template_name = 'common/about_us.html'
+
+
+def handler404(request, *args, **kwargs):
+    context = {}
+    template_name = 'errors/404.html'
+    response = render(request, template_name=template_name, context=context)
+    response.status_code = 404
+    return response
+
+
+def handler500(request, *args, **kwargs):
+    context = {}
+    template_name = 'errors/500.html'
+    response = render(request, template_name=template_name, context=context)
+    response.status_code = 500
+    return response
