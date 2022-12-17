@@ -16,10 +16,3 @@ class FeaturedCommentForm(forms.ModelForm):
                 },
             ),
         }
-# from web_project.common.models import FeaturedComments
-#
-#
-# class NewCommentForm(forms.ModelForm):
-#     class Meta:
-#         model = FeaturedComments
-#         fields = ['content']

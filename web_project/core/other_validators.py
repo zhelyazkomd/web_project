@@ -1,7 +1,6 @@
 from web_project.common.models import FeaturedLike, RegisterEvent
 
 
-# TODO: if applicable - merge functions
 def user_liked_featured(request, featured_id):
     user = request.user.pk
     return FeaturedLike.objects.filter(featured_id=featured_id, user_id=user)

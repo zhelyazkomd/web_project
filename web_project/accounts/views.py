@@ -1,4 +1,4 @@
-from django.contrib.auth import views as auth_views, login, get_user_model, update_session_auth_hash
+from django.contrib.auth import views as auth_views, login, get_user_model, update_session_auth_hash, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -46,13 +46,10 @@ class UserEditView(views.UpdateView):
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
 
-    # TODO:Check return to user profile
     def get_success_url(self):
         return reverse_lazy('details profile', kwargs={
             'pk': self.request.user.pk,
         })
-
-        # return reverse_lazy('index')
 
 
 class UserDetailsView(views.DetailView):

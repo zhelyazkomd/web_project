@@ -142,6 +142,7 @@
                 <h1>{{ event.event_name }} <span class="levels">Capacity: {{ event.capacity }}</span></h1>
                  <h2>Remaining capacity {{ free_slots }}</h2>
                 <p><span class="type">Type of event: {{ event.type_of_event}}</span></p>
+                <p><span class="type">Star time: {{ event.starting_time}}</span></p>
             </div>
                 <p class="text">
                     {{ event.description }}
@@ -152,7 +153,9 @@
                 {% else %}
                 <a href="{% url 'register user for event' event_id=event.pk %}" class="button">Unregister</a>
                 {% endif %}
+            {% if request.user.is_staff %}
             <a href="{% url 'edit event' slug=event.slug %}" class="button">Edit</a>
+            {% endif %}
             </div>
         </div>
     </section>

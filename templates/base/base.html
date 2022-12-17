@@ -29,45 +29,36 @@
         }
     </style>
     <title>Techpoint</title>
-    {#    <link rel="stylesheet"#}
-    {#          href="{% static 'css/styles.css' %}">#}
 </head>
 <body>
 
 <style>
     body {
-  background-color: silver;
-}
-    </style>
+        background-color: silver;
+    }
+</style>
 <ul>
     <li><a href="{% url 'index' %}">Home</a></li>
     {% if not request.user.is_authenticated %}
         <li><a href="{% url 'sign up' %}">Sign up</a></li>
         <li><a href="{% url 'sign in' %}">Sign in</a></li>
+        <li><a href="{% url 'show all events' %}">Events</a></li>
+        <li><a href="{% url 'all featured' %}">Featured</a></li>
+        <li><a href="{% url 'about us' %}">About us</a></li>
     {% else %}
         <li><a href="{% url 'edit profile' pk=request.user.pk %}">Edit Profile</a></li>
         <li><a href="{% url 'details profile' pk=request.user.pk %}">My Profile</a></li>
+        {% if request.user.is_staff %}
         <li><a href="{% url 'create event' %}">Create Event</a></li>
+        <li><a href="{% url 'create featured' %}">Created Featured</a></li>
+         {% endif %}
         <li><a href="{% url 'show all events' %}">Events</a></li>
         <li><a href="{% url 'all featured' %}">Featured</a></li>
-        <li><a href="{% url 'create featured' %}">Created Featured</a></li>
         <li><a href="{% url 'about us' %}">About us</a></li>
-
-
-        {#        <li><a href="{% url 'edit event' pk=request.user.pk %}">Edit Event</a></li>#}
         <li><a href="{% url 'sign out' %}">Sign out</a></li>
     {% endif %}
-    {#  <li><a href="contact.asp">Contact</a></li>#}
-    {#  <li><a href="about.asp">About</a></li>#}
 </ul>
 {% block content %}
 {% endblock %}
-
-
-{#<div class="footer">#}
-{#		<span class="footer-section">#}
-{#			© 2022 SOFTUNI PYTHON WEB MODULE FINAL EXAM#}
-{#		</span>#}
-{#</div>#}
 </body>
 </html>

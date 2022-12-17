@@ -30,7 +30,6 @@ class CreateEventView(PermissionMixin, views.CreateView):
 
 
 class AllEventView(views.ListView):
-    paginate_by = 3
     context_object_name = 'events'
     model = Event
     template_name = 'event/all-events.html'
@@ -77,5 +76,4 @@ def register_event(request, event_id):
         registered.delete()
     else:
         create_user_register_in_event(request, event_id)
-
     return redirect(get_current_url_path(request))

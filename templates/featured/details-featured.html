@@ -2,36 +2,7 @@
 {% block content %}
 
     {% load static %}
-    {#    <h1>{{ featured.title }}</h1>#}
-    {#    <h2>{{ featured.category }}</h2>#}
-    {#    <h3>{{ featured.article_text }}</h3>#}
 
-    {#<form method="post" action="{% url 'like featured' featured_id=featured.pk %}">#}
-    {#    {% if user_is_like.count != 1 %}#}
-    {#        <button>Like</button>#}
-    {#    {% else %}#}
-    {#        <button>Unlike</button>#}
-    {#    {% endif %}#}
-    {#    {% csrf_token %}#}
-    {#</form>#}
-    {##}
-    {#<article>#}
-    {#    <section>#}
-    {#        {% for comment in featured.featuredcomment_set.all %}#}
-    {#            {{ comment.text }}#}
-    {#            {{ user_name }}#}
-    {#        {% endfor %}#}
-    {#    </section>#}
-    {#</article>#}
-    {#<form method="post" action="{% url 'comment featured' featured_id=featured.pk %}">#}
-    {#    {{ comment_form }}#}
-    {#    <button type="submit">Post</button>#}
-    {#    {% csrf_token %}#}
-    {#</form>#}
-    {#<a href="{% url 'details featured' slug=featured.slug %}">#}
-    {#    <button>Edit</button>#}
-    {#</a>#}
-    {#{% csrf_token %}#}
     <body>
     <main>
         <h1>
@@ -46,6 +17,9 @@
     </body>
 
     <form method="post" action="{% url 'like featured' featured_id=featured.pk %}">
+    <strong>
+    <p>{{ likes_count }} Likes</p>
+    </strong>
         {% if user_is_like.count != 1 %}
             <button>Like</button>
         {% else %}
@@ -53,8 +27,10 @@
         {% endif %}
         {% csrf_token %}
     </form>
+    {% if request.user.is_staff %}
     <a href="{% url 'edit featured' slug=featured.slug %}">
         <button>Edit</button>
+    {% endif %}
     </a>
 
 
