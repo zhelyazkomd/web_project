@@ -4,13 +4,7 @@ import boto3
 
 
 class SESService():
-    def __init__(self):
-        self.client = boto3.client(
-            'ses',
-            aws_access_key_id='AKIA6BZMFCPEIFP6O2JN',
-            aws_secret_access_key="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",
-            region_name="us-east-1",
-        )
+    
 
     def send_email(self, email):
         logging.info("Starting email sending process")
