@@ -35,8 +35,16 @@ class SignOutView(auth_views.LogoutView):
 class UserEditView(views.UpdateView):
     template_name = 'accounts/profile-edit-page.html'
     model = Profile
-    # form_class = UserEditView
     fields = ('first_name', 'last_name', 'gender', 'photo', 'short_introduction',)
+
+    pk_url_kwarg = 'pk'
+
+    def dispatch(self, request, *args, **kwargs):
+        request_user_pk = self.kwargs.get(self.pk_url_kwarg)
+        current_user_pk = self.request.user.id
+        if request_user_pk != current_user_pk:
+            return redirect('index')
+        return super().dispatch(request, *args, **kwargs)
 
     # TODO:Check return to user profile
     def get_success_url(self):

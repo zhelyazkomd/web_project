@@ -35,6 +35,7 @@ class CreateFeaturedView(PermissionMixin, views.CreateView):
 
 
 class AllFeaturedView(views.ListView):
+
     context_object_name = 'featureds'
     model = Featured
     template_name = 'featured/all-featured.html'
