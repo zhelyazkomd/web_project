@@ -7,8 +7,8 @@ class SESService():
     def __init__(self):
         self.client = boto3.client(
             'ses',
-            aws_access_key_id='AKIA6BZMFCPEFH5GCQPX',
-            aws_secret_access_key="AKIA6BZMFCPEFH5GCQPX,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",
+            aws_access_key_id='AKIA6BZMFCPEIFP6O2JN',
+            aws_secret_access_key="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",
             region_name="us-east-1",
         )
 

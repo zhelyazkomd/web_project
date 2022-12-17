@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
+from services.ses import SESService
 from web_project.accounts.forms import SignUpForm, SetPasswordForm
 from web_project.accounts.models import Profile
 from web_project.accounts.utils import get_user_profile, get_user_email

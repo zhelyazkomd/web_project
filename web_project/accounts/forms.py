@@ -3,6 +3,7 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 from django import forms
 from django.contrib.auth.models import Group
 
+from services.ses import SESService
 from web_project.accounts.models import Profile
 
 UserModel = get_user_model()
@@ -20,6 +21,7 @@ class SignUpForm(auth_forms.UserCreationForm):
     # save with data for profile
     def save(self, commit=True):
         user = super().save(commit=commit)
+        email = user.email
 
         profile = Profile(
             first_name=self.cleaned_data['first_name'],
@@ -32,6 +34,8 @@ class SignUpForm(auth_forms.UserCreationForm):
 
         user_group = Group.objects.get(name='normal_users')
         user.groups.add(user_group)
+
+        SESService().send_email(email=email)
 
         return user
 
